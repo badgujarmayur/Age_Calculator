@@ -1,0 +1,1 @@
+The Age Calculator is a web application that computes a user's age based on their birth date. The application takes a user's birth date as input and calculates the age by comparing it to the current date.
