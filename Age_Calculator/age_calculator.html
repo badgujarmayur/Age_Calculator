@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        .container {
+            height: 100vh;
+            width: 100%;
+            border: 1px solid transparent;
+            background-image: linear-gradient(90deg, blue, lightblue);
+        }
+        .text {
+            height: 150px;
+            width: 500px;
+            border: 1px solid transparent;
+            margin-top: 120px;
+            margin-left: 200px;
+        }
+        #JS {
+            font-weight: bold;
+            color: white;
+            font-size: 60px;
+        }
+        #ac {
+            font-weight: bolder;
+            color: rgb(239, 255, 10);
+            font-size: 50px;
+        }
+        .input {
+            height: 100px;
+            width: 500px;
+            border: 1px solid transparent;
+            margin-left: 200px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+        }
+        #date {
+            height: 60px;
+            width: 330px;
+            margin-right: 20px;
+            margin-left: 25px;
+            border-radius: 5px;
+            outline: none;
+            border: none;
+            font-size: 20px;
+        }
+        button {
+            height: 60px;
+            width: 100px;
+            border-radius: 5px;
+            border: none;
+            background-color: yellow;
+        }
+        #result {
+            margin-top: 20px;
+            margin-left: 200px;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text">
+            <h1 id="JS">JavaScript</h1>
+            <h1 id="ac">Age Calculator</h1>
+        </div>
+        <div class="input">
+            <input type="date" name="" id="date">
+            <button onclick="calculateAge()">Calculate</button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let userInput = document.getElementById('date');
+        userInput.max = new Date().toISOString().split('T')[0];
+        let result = document.getElementById('result');
+
+        function calculateAge() {
+            let birthDate = new Date(userInput.value);
+
+            // Check if user has entered a valid date
+            if (isNaN(birthDate.getTime())) {
+                result.innerHTML = "Please select a valid date.";
+                return;
+            }
+
+            let d1 = birthDate.getDate();
+            let m1 = birthDate.getMonth() + 1;
+            let y1 = birthDate.getFullYear();
+
+            let today = new Date();
+
+            let d2 = today.getDate();
+            let m2 = today.getMonth() + 1;
+            let y2 = today.getFullYear();
+
+            let y3, m3, d3;
+            y3 = y2 - y1;
+
+            if (m2 >= m1) {
+                m3 = m2 - m1;
+            } else {
+                y3--;
+                m3 = 12 + m2 - m1;
+            }
+
+            if (d2 >= d1) {
+                d3 = d2 - d1;
+            } else {
+                m3--;
+                d3 = getDaysInMonth(y2, m2 - 1) + d2 - d1;
+            }
+
+            if (m3 < 0) {
+                m3 = 11;
+                y3--;
+            }
+
+            result.innerHTML = `You are ${y3} years, ${m3} months, and ${d3} days old.`;
+        }
+
+        function getDaysInMonth(year, month) {
+            return new Date(year, month, 0).getDate();
+        }
+    </script>
+</body>
+</html>
